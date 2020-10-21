@@ -1,42 +1,41 @@
 public class GumballMachineDecorator implements GumballMachine {
-    protected int num_gumballs = 10;
+    protected static int num_gumballs = 10;
     protected static int price = 25;
     protected static int amount_inserted = 0;
 
     @Override
-    public void insertCoins(int coin) {
+    public void insertCoin(int coin) {
         if (coin == 25)
         {
             amount_inserted += 25;
-            System.out.println("amount inserted: " + amount_inserted);
+            System.out.println("Insert: " + coin);
         }
         else
         {
-            System.out.println("Please insert only quarters!");
+            System.out.println("Please insert only quarters! Ejecting coins...");
+            amount_inserted = 0; 
         }
     }
 
     @Override
-    public void turnCrank() {
-        if (amount_inserted % price == 0)
+    public void turnCrank()
+    {
+        System.out.println("Amount Deposited: " + amount_inserted + '\n');
+        if (num_gumballs > 0)
         {
-            if (num_gumballs > 0)
+            if (amount_inserted % price == 0)
             {
-                amount_inserted = amount_inserted / 25;
-                num_gumballs -= amount_inserted;
-                System.out.println("Thanks for your coins. Ejected " + amount_inserted);
-                System.out.println("Gumballs Left: " + num_gumballs);
-                amount_inserted = 0;
+                System.out.println( "Thanks for your quarters.  Gumball(s) Ejected!" ) ;
             }
             else
             {
-                System.out.println( "No More Gumballs!  Sorry, can't return your coins." );
+                System.out.println("Please insert " + price + " cents for 1 gumball. Ejecting coins..."); 
             }
+            amount_inserted = 0; 
         }
         else
         {
-            System.out.println("Please insert the proper amount for the gumball."); 
+            System.out.println( "No More Gumballs!  Sorry, can't return your coins." );
         }
-
     }
 }
